@@ -1,6 +1,6 @@
 # 移动端解决方案
 
-> 这里是个人在公司实习的时候接触到的东西，为避免忘记以及深入学习，决定将零散的知识点整理成文档。
+> 在公司实习的时候接触到一些移动端上面的坑，记录之。
 
 ## 唤起APP
 
@@ -10,23 +10,14 @@
 ```
 function downLoad(){
         var  redirectUrl = 'http://note.youdao.com/collect/index.html',
+            isAndroid = !!navigator.userAgent.match(/android/ig),
             android_yingyongbao = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.youdao.note&ckey=CK1362580791055';
-        if(type === '1'){
             if(isAndroid) {
                 isWeixin ? holdApp(android_scheme, android_yingyongbao, redirectUrl) : holdApp(android_scheme, androidUrl, redirectUrl);
             } else {
                 holdApp(ios_scheme, iosLoadUrl, redirectUrl);                
             }
-        } else if(type === '0'){
-            if(clickKeyfrom !== 'wechat') {
-                redirectUrl = insideTips && insideTips[clickKeyfrom] && insideTips[clickKeyfrom].link; 
-                window.location = redirectUrl + '?time=' + ((new Date()).getTime());
-            } else {
-                var wechatScheme = 'weixin://',
-                    wechatLoad = 'http://weixin.qq.com/cgi-bin/readtemplate?t=w_down';
-                holdApp(wechatScheme, wechatLoad, redirectUrl);
-            }
-        }
+        } 
     }
 
     function holdApp(scheme, loadUrl, successUrl, onFail, onSuccess){
@@ -57,11 +48,44 @@ function downLoad(){
     }
 ```
 
-## 客户端平台检测
-
 ## 视频解决方案
+在微信中不支持自动播放，需要通过添加事件`$(".playSrc").play()`来达到播放的效果。
+```html
+ <video class="playSrc"
+webkit-playsinline="true"
+playsinline="true"
+preload="auto"
+x5-video-player-fullscreen="false"
+muted
+poster="assets/imgs/video.jpg"
+type="videp/mp4"
+loop>
+您的浏览器不支持播放器，请通过右侧文字步骤进行操作。
+</video>
+```
 
-## 布局
+## 原生HTML页面检测APP版本
+```
+**@isNewBuild 是否为大于等于baseBuild的新版本
+**@baseBuild 检测版本
+**
+var nowBuild = navigator.userAgent.toString().split(' '),
+    isNewBuild = false,
+    // 版本号
+    baseBuild = '5.9.7.0';
+    for(var i = 0, l = nowBuild.length; i < l; i++) {
+            // 这里检测的是IOS版本，后续如果使用android版本，在indexOf中替换
+        if(~nowBuild[i].indexOf('YnoteiOS')) {
+            isNewBuild = nowBuild[i].split('/')[1] >= baseBuild;
+        }
+    };
+```
+
+## 移动端布局
+- rem
+- @media
+- flex
+- meta viewport 
 
 ## 活动页开发
 
