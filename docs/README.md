@@ -82,10 +82,29 @@ var nowBuild = navigator.userAgent.toString().split(' '),
 ```
 
 ## 移动端布局
-- rem
-- @media
-- flex
-- meta viewport 
+采用rem对于不同的物理设备进行单位统一。比如我们的会员页设定是以iphone6为设计原型。
+```
+document.documentElement.style.fontSize = window.innerWidth / 3.75 + 'px';
+```
+这种方式就是在HTML的根节点上设定`font-size`，而`rem` 会根据 `html`的根节点进行计算。
+还需要再设置
+```
+<meta name="viewport"   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+```
+使得页面宽度就会等于设备逻辑像素大小，也就是device-width。
+
+额外补充：
+device-width = 设备的物理分辨率/(devicePixelRatio * scale)
+每台设备devicePixelRatio是已知的，iphone6为2.0， iphone6Plus为3.0。
+也可以采用如下方式进行设置
+```
+var scale = 1 / devicePixelRatio;
+document.querySelector('meta[name="viewport"]').setAttribute('content','initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+```
+
+### more:
+[移动前端开发之viewport的深入理解](http://www.cnblogs.com/2050/p/3877280.html)
+[从网易与淘宝的font-size思考前端设计稿与工作流](http://www.cnblogs.com/lyzg/p/4877277.html#)
 
 ## 活动页开发
 
