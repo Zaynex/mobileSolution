@@ -104,7 +104,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','initial-
 
 ### more:
 [移动前端开发之viewport的深入理解](http://www.cnblogs.com/2050/p/3877280.html)
+
 [从网易与淘宝的font-size思考前端设计稿与工作流](http://www.cnblogs.com/lyzg/p/4877277.html#)
+
+## iPad横屏切换
+因为采用rem布局，获得的font-size是JS计算得到的。所以检测window.resize再计算即可。
+```
+$(window).resize(function () {
+    document.documentElement.style.fontSize = window.innerWidth / 3.75 + 'px';
+})
+```
 
 ## 活动页开发
 
